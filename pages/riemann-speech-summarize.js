@@ -1,8 +1,11 @@
 import { SideBar } from "../components/SideBar.jsx";
 import Head from "next/head";
 import { Landing } from "../components/Landing";
-import { Container } from "@chakra-ui/react";
-import { NavBar } from "../components/NavBar";
+import { Container, Heading, Text, Box, Button } from "@chakra-ui/react";
+import { HeadingWithDesc } from "../components/Headings/HeadingWithDesc.jsx";
+
+import Dictaphone from "../components/Dictaphone.jsx";
+
 export default function SpeechSummarize() {
   return (
     <>
@@ -15,7 +18,16 @@ export default function SpeechSummarize() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <SideBar active="speech" />
+      <SideBar active="speech">
+        <Heading as="h1" size="xl" color="gray.700" mb="4" fontWeight="black">
+          Speech{" "}
+          <Text as="span" color="#69cfbc">
+            Summarize
+          </Text>
+        </Heading>
+
+        <Dictaphone />
+      </SideBar>
     </>
   );
 }

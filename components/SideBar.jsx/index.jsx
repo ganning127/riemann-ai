@@ -49,7 +49,7 @@ const LinkItems = [
 export const SideBar = ({ active, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.50", "gray.900")}>
+    <Box minH="100vh" bg="white">
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -70,7 +70,7 @@ export const SideBar = ({ active, children }) => {
       </Drawer>
 
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p="8">
         {children}
       </Box>
     </Box>
