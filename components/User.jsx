@@ -1,32 +1,22 @@
 import {
-  IconButton,
   Avatar,
   Box,
-  CloseButton,
   Flex,
   HStack,
   VStack,
-  ScaleFade,
-  Icon,
   useColorModeValue,
-  Link,
-  Drawer,
-  DrawerContent,
   Text,
-  useDisclosure,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
-  Img,
 } from "@chakra-ui/react";
 import { FiHome, FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 
 export const User = ({ active, children }) => {
   const handleSignOut = () => {
-    localStorage.setItem("uniheart_login_state", false);
-    window.location.href = "/";
+    // localStorage.setItem("uniheart_login_state", false);
+    // window.location.href = "/";
   };
   return (
     <Flex alignItems={"center"}>
@@ -42,7 +32,7 @@ export const User = ({ active, children }) => {
             >
               <Text fontSize="sm"> john@doe.com</Text>
               <Text fontSize="xs" color="gray.600">
-                UniHeart member
+                RiemannAI
               </Text>
             </VStack>
             <Box display={{ base: "none", md: "flex" }}>
@@ -54,9 +44,6 @@ export const User = ({ active, children }) => {
           bg={useColorModeValue("white", "gray.900")}
           borderColor={useColorModeValue("gray.200", "gray.700")}
         >
-          {/* <MenuItem>Profile</MenuItem>
-                    <MenuItem>Settings</MenuItem> */}
-          {/* <MenuDivider /> */}
           <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
         </MenuList>
       </Menu>
