@@ -29,9 +29,9 @@ export const Landing = () => {
           Learn.
         </Heading>
         <Text color={"#545454"} maxW={"3xl"}>
-          Riemann AI is a SaaS platform designed for text summarization through
-          by using Machine Learning. We provide both users, developers, and
-          students with all of their text summarization tools needed to succeed.
+          RiemannAI is a SaaS designed for text summarization through by using
+          Machine Learning. We provide both users, developers, and students with
+          all of their text summarization tools needed to succeed.
         </Text>
         <Stack spacing={6} direction={"row"}>
           <Button
