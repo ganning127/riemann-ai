@@ -32,7 +32,6 @@ const links = [
 
 const MobileNavContent = (props) => {
   const { isOpen, onToggle } = useDisclosure();
-  console.log("mode:", props.mode);
   return (
     <Box {...props}>
       <Center

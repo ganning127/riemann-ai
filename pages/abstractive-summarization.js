@@ -61,13 +61,11 @@ export default function Extractive() {
     const resp = await fetch("/api/abstractive-summarization", options);
     const data = await resp.json();
 
-    console.log("data:", data);
     setSummary(data.summary);
     setBullets(data.bullets);
 
     if (question != "") {
       setAnswer(data.answer);
-      console.log("question", question);
     }
 
     setIsSubmitted(true);

@@ -6,9 +6,7 @@ export default async function handler(req, res) {
 
   if (speechToken === undefined) {
     try {
-      console.log("fetching...");
       const res = await fetch("/get-speech-token");
-      console.log(res);
       const data = await res.json();
       const token = data.token;
       const region = data.region;
@@ -17,13 +15,11 @@ export default async function handler(req, res) {
         path: "/",
       });
 
-      console.log("Token fetched from back-end: " + token);
       return { authToken: token, region: region };
     } catch (err) {
       return { authToken: null, error: err };
     }
   } else {
-    console.log("Token fetched from cookie: " + speechToken);
     const idx = speechToken.indexOf(":");
     return {
       authToken: speechToken.slice(idx + 1),
