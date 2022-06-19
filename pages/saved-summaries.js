@@ -62,32 +62,42 @@ export default function SavedSummaries() {
     setItems(itemsStorage);
   }, []);
   return (
-    <SideBar active="saved summaries">
-      <Heading as="h1" size="2xl" color="gray.700" mb="4" fontWeight="black">
-        Saved{" "}
-        <Text as="span" color="#69cfbc">
-          Summaries
-        </Text>
-      </Heading>
+    <>
+      <Head>
+        <title>Saved | RiemannAI</title>
+        <meta
+          name="description"
+          content="Translate, Summarize, and Learn with RiemannAI"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <SideBar active="saved summaries">
+        <Heading as="h1" size="2xl" color="gray.700" mb="4" fontWeight="black">
+          Saved{" "}
+          <Text as="span" color="#69cfbc">
+            Summaries
+          </Text>
+        </Heading>
 
-      <hr />
-      {items.map((item, index) => {
-        const useDate = new Date(item.date);
-        return (
-          <Box key={index} p={4} rounded="md" shadow="md">
-            <Text fontWeight="bold" fontSize="2xl">
-              Summary {index + 1}
-            </Text>
-            <Text fontStyle="italic" fontSize="sm">
-              Date Recorded: {useDate.toLocaleString()}
-            </Text>
-            <Text fontWeight="bold" fontSize="md">
-              Summary:
-            </Text>
-            <Text>{item.summarized}</Text>
-          </Box>
-        );
-      })}
-    </SideBar>
+        <hr />
+        {items.map((item, index) => {
+          const useDate = new Date(item.date);
+          return (
+            <Box key={index} p={4} rounded="md" shadow="md">
+              <Text fontWeight="bold" fontSize="2xl">
+                Summary {index + 1}
+              </Text>
+              <Text fontStyle="italic" fontSize="sm">
+                Date Recorded: {useDate.toLocaleString()}
+              </Text>
+              <Text fontWeight="bold" fontSize="md">
+                Summary:
+              </Text>
+              <Text>{item.summarized}</Text>
+            </Box>
+          );
+        })}
+      </SideBar>
+    </>
   );
 }

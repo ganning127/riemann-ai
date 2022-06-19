@@ -75,7 +75,7 @@ const DesktopNavContent = (props) => {
           key={index}
           href={link.href}
           _hover={{
-            color: "grey",
+            color: "#69cfbc",
           }}
           mode={props.mode}
         >
