@@ -45,7 +45,6 @@ export default function Extractive() {
       const resp = await fetch("/api/extractive-sum", options);
       const data = await resp.json();
       setSummary(data.summary + ".");
-      console.log(data);
       setIsSubmitted(true);
       setLoading(false);
     }, 700);
