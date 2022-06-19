@@ -32,16 +32,22 @@ const links = [
 
 const MobileNavContent = (props) => {
   const { isOpen, onToggle } = useDisclosure();
+  console.log("mode:", props.mode);
   return (
     <Box {...props}>
-      <Center as="button" p="2" fontSize="2xl" onClick={onToggle}>
+      <Center
+        as="button"
+        p="2"
+        fontSize="2xl"
+        onClick={onToggle}
+        color={props.mode === "dark" ? "gray.100" : "gray.700"}
+      >
         {isOpen ? <HiX /> : <HiOutlineMenu />}
       </Center>
       <NavList
         pos="absolute"
         insetX="0"
         bg="white"
-        color="gray.700"
         top="64px"
         animate={isOpen ? "enter" : "exit"}
       >
@@ -72,6 +78,7 @@ const DesktopNavContent = (props) => {
           _hover={{
             color: "grey",
           }}
+          mode={props.mode}
         >
           {link.label}
         </NavLink.Desktop>

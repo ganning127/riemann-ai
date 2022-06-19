@@ -48,12 +48,14 @@ export const NavBar = ({ bg, active, mode }) => (
               md: "flex",
             }}
             active={active}
+            mode={mode}
           />
           <NavContent.Mobile
             display={{
               base: "flex",
               md: "none",
             }}
+            mode={mode}
           />
         </Flex>
       </Box>
