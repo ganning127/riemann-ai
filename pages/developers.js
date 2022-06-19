@@ -56,10 +56,10 @@ export default function Home() {
               Our does our API work?
             </Heading>
             <Text color="gray.400" fontWeight={400}>
-              Whether you&apos;re just learning to code, an experienced
+              Whether you are just learning to code, an experienced
               developer, or a student wanting to create simplified versions of
-              text to read, the RiemannAI API is for you! All API endpoints are
-              completely free for all use cases. In order for us to keep
+              text to read, the RiemannAI API is for you! All endpoints are
+              completely free for any use case. In order for us to continue
               providing this service, please do not make spam or unnecessarily
               large numbers of requests to any API endpoint.
             </Text>
@@ -78,8 +78,11 @@ export default function Home() {
                 <Text color="gray.400" fontWeight={400}>
                   We provide an endpoint that allows for extractive
                   summarization. Extractive summarization keeps important
-                  sentences and cuts out unimportant ones from the original
-                  piece of text. <b>Note:</b> Please use{" "}
+                  sentences and cuts out other ones from the original
+                  piece of text.
+                </Text>
+                <Text color="gray.400" fontWeight={400}>
+                  <b>Note:</b> Please use{" "}
                   <Code>JSON.stringify()</Code> before sending data over to this
                   API endpoint.
                 </Text>
@@ -95,7 +98,7 @@ export default function Home() {
                 <UnorderedList color="gray.400">
                   <ListItem>
                     <Code>pKeep</Code>: The proportion of sentences to take from
-                    the original text for the summary.
+                    the original text for the summary, out of 1.
                   </ListItem>
                 </UnorderedList>
                 <Text color="gray.400" fontWeight={400} mt={4}>
@@ -141,7 +144,10 @@ export default function Home() {
                 <Text color="gray.400" fontWeight={400}>
                   We provide an endpoint that allows for abstractive
                   summarization. Abstractive summarization uses deep learning to
-                  truly understand a piece of text. <b>Note:</b> Please use{" "}
+                  understand a piece of text, and returns the desired portions.
+                </Text>
+                <Text color="gray.400" fontWeight={400}>
+                  <b>Note:</b> Please use{" "}
                   <Code>JSON.stringify()</Code> before sending data over to this
                   API endpoint.
                 </Text>
@@ -160,12 +166,12 @@ export default function Home() {
                     <Code>origText</Code>: The original piece of text.
                   </ListItem>
                   <ListItem>
-                    <Code>numBullets</Code>: Number of bullet points to return
-                    in the summary.
+                    <Code>numBullets</Code>: The number of bullet points to 
+                    return in the summary.
                   </ListItem>
                   <ListItem>
                     <Code>question</Code>: The question you want to ask the API.
-                    Use &quot;N/A&quot; if no question.
+                    Use &quot;N/A&quot; if not desired.
                   </ListItem>
                 </UnorderedList>
               </Box>
