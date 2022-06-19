@@ -56,12 +56,12 @@ export default function Home() {
               Our does our API work?
             </Heading>
             <Text color="gray.400" fontWeight={400}>
-              Whether you're just learning to code, an experienced developer, or
-              a student wanting to create simplified versions of text to read,
-              the RiemannAI API is for you! All API endpoints are completely
-              free for all use cases. In order for us to keep providing this
-              service, please do not make spam or unnecessarily large numbers of
-              requests to any API endpoint.
+              Whether you&apos;re just learning to code, an experienced
+              developer, or a student wanting to create simplified versions of
+              text to read, the RiemannAI API is for you! All API endpoints are
+              completely free for all use cases. In order for us to keep
+              providing this service, please do not make spam or unnecessarily
+              large numbers of requests to any API endpoint.
             </Text>
           </Box>
 
@@ -87,7 +87,7 @@ export default function Home() {
                   POST
                 </Code>
                 <Code colorScheme="blue" fontSize="2xl" mt={4} ml={4}>
-                  /api/extractive-summarization
+                  /api/extractive-sum
                 </Code>
                 <Text color="gray.400" fontWeight={400} mt={4}>
                   <b>Headers:</b>
@@ -112,23 +112,18 @@ export default function Home() {
                   <b>Example:</b>
                 </Text>
 
-                <Code
-                  whiteSpace={"pre"}
-                  d="block"
-                  oveflowX="scroll"
-                  children={`
-const options = {
-  method: "POST",
-  headers: {
-    pkeep: pKeep,
-  },
-  body: JSON.stringify({ origText: origText }),
-};
-
-const resp = await fetch("/api/extractive-sum", options);
-const data = await resp.json();
-      `}
-                />
+                <Code whiteSpace={"pre"} d="block" overflowX="scroll">{`
+                const options = {
+                  method: "POST",
+                  headers: {
+                    pkeep: pKeep,
+                  },
+                  body: JSON.stringify({ origText: origText }),
+                };
+                
+                const resp = await fetch("/api/extractive-sum", options);
+                const data = await resp.json();
+                      `}</Code>
               </Box>
             </SimpleGrid>
           </Box>
@@ -141,13 +136,12 @@ const data = await resp.json();
                   color="#98DFD2"
                   fontWeight="black"
                 >
-                  Extractive Summarization
+                  Abstractive Summarization
                 </Heading>
                 <Text color="gray.400" fontWeight={400}>
-                  We provide an endpoint that allows for extractive
-                  summarization. Extractive summarization keeps important
-                  sentences and cuts out unimportant ones from the original
-                  piece of text. <b>Note:</b> Please use{" "}
+                  We provide an endpoint that allows for abstractive
+                  summarization. Abstractive summarization uses deep learning to
+                  truly understand a piece of text. <b>Note:</b> Please use{" "}
                   <Code>JSON.stringify()</Code> before sending data over to this
                   API endpoint.
                 </Text>
@@ -155,23 +149,23 @@ const data = await resp.json();
                   POST
                 </Code>
                 <Code colorScheme="blue" fontSize="2xl" mt={4} ml={4}>
-                  /api/extractive-summarization
+                  /api/abstractive-summarization
                 </Code>
-                <Text color="gray.400" fontWeight={400} mt={4}>
-                  <b>Headers:</b>
-                </Text>
-                <UnorderedList color="gray.400">
-                  <ListItem>
-                    <Code>pKeep</Code>: The proportion of sentences to take from
-                    the original text for the summary.
-                  </ListItem>
-                </UnorderedList>
+
                 <Text color="gray.400" fontWeight={400} mt={4}>
                   <b>Body:</b>
                 </Text>
                 <UnorderedList color="gray.400">
                   <ListItem>
                     <Code>origText</Code>: The original piece of text.
+                  </ListItem>
+                  <ListItem>
+                    <Code>numBullets</Code>: Number of bullet points to return
+                    in the summary.
+                  </ListItem>
+                  <ListItem>
+                    <Code>question</Code>: The question you want to ask the API.
+                    Use &quot;N/A&quot; if no question.
                   </ListItem>
                 </UnorderedList>
               </Box>
@@ -180,23 +174,19 @@ const data = await resp.json();
                   <b>Example:</b>
                 </Text>
 
-                <Code
-                  whiteSpace={"pre"}
-                  d="block"
-                  oveflowX="scroll"
-                  children={`
-const options = {
-  method: "POST",
-  headers: {
-    pkeep: pKeep,
-  },
-  body: JSON.stringify({ origText: origText }),
-};
-
-const resp = await fetch("/api/extractive-sum", options);
-const data = await resp.json();
-      `}
-                />
+                <Code whiteSpace={"pre"} d="block" overflowX="scroll">{`
+                const options = {
+                  method: "POST",
+                  body: JSON.stringify({
+                    origText,
+                    question: useQ,
+                    numBullets,
+                  }),
+                };
+                
+                const resp = await fetch("/api/abstractive-summarization", options);
+                const data = await resp.json();
+                      `}</Code>
               </Box>
             </SimpleGrid>
           </Box>
