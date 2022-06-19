@@ -9,11 +9,11 @@
 - [x] Take the transcribed text and feed it through a text summarization ML model once the user clicks a button
 - [x] Allow users to specify input (spoken) and output (summarized) languages
 - [x] Abstractive simplification
-- [] Saving the summaried document (can be any language)
-- [ ] API endpoints for Developers:
+- [x] Saving the summaried document (can be any language)
+- [x] API endpoints for Developers:
   - [x] Summarize text using extractive summarization
   - [x] Summarize text using abstractive summarization
-  - [ ] Summarize text from different languages as input and output
+  - [x] Summarize text from different languages as input and output
 
 
 # Write-Up
@@ -27,9 +27,29 @@ As English as a Second Language (ESL) students ourselves, we have experienced su
 We were inspired to create RiemannAI, a service that translates and summarizes course content for students worldwide, the very solution many of our team members wished we had access to years ago.
 
 ## Our Solution
-RiemannAI is a simplistic language process interface. The key feature of our solution allows students to use RiemannAI to transcribe and translate audio recordings of lectures, discussions, or speeches from most languages into the student’s chosen language. To make review of the material easier for these students, our solution also incorporates a text summarization capability that returns the main points from this audio recording for the student’s use. 
+RiemannAI is a simplistic language process interface. The key feature of our solution allows students to use RiemannAI to transcribe and translate audio recordings of lectures, discussions, or speeches from most languages into the student’s chosen language. To make the review of the material easier for these students, our solution also incorporates a text summarization capability that returns the main points from this audio recording for the student’s use. 
 
-Yet RiemannAI is more than merely just a single tool. The interactive interface also introduces methods for extractive and abstractive summarization from text (expanding its functionality to more than just audio input). The extractive summarization functionality allows for students to shorten long, difficult texts to an approachable length. On the other hand, the abstractive summarization function aids in the summarization and finding of answers to certain questions students may have. This, in turn, will allow for students to approach work completion and studying more efficiently.
+Yet RiemannAI is more than merely just a single tool. The interactive interface also introduces methods for extractive and abstractive summarization from the text (expanding its functionality to more than just audio input). The extractive summarization functionality allows for students to shorten long, difficult texts to an approachable length. On the other hand, the abstractive summarization function aids in the summarization and finding of answers to certain questions students may have. This, in turn, will allow students to approach work completion and studying more efficiently.
+
+## Challenges we ran into
+During this project, we discovered that it is difficult to interface with a variety of languages in their written and spoken forms. An example of this is with the website’s speech recognition function: originally depending on React.js’s speech recognition tools to record and transcribe audio, users would have had to manually dictate punctuation for the summarization features to function correctly. This task was switched over to Microsoft Azure’s speech recognition instead, which resolved the aforementioned issue and gave us greater uniformity behind the scenes on the website.
+
+Additionally, testing the accuracy and usability of RiemannAI proved challenging outside of the languages that our team’s members are proficient in. Aside from relying on the performance of the API, we also validated this using outside tools as a benchmark to help us gauge the reliability of the website.
+
+## Accomplishments that we're proud of
+We successfully designed a simplistic and functional user interface that would significantly help students who seek foreign academic resources. On top of that, our team came up with an algorithm that makes use of skills in topics such as machine learning and natural language processing. We were able to understand and implement concepts like extractive and abstractive summary. 
+
+## What we learned
+We learned useful technical skills including utilizing Microsoft Azure’s APIs to translate texts and summarize them. Additionally, through LingHacks, we were challenged to approach design and idea implementation creatively, growing our ability to think critically and outside the box.
+
+## What's next for RiemannAI? 
+Our team envisions expanding RiemannAI for applications not only in the classroom but as a tool in the workplace, at conferences, and more. In these locations, additional attention to filtering out background noise or non-primary speakers may be needed to fit these settings. As a result, our team hopes to fine-tune the model to contain added functionality on this front.
+
+While the current interface is dependent on having Internet access, we believe it is plausible to introduce a mobile form of this application to increase ease of access. However, all these expansions will require extensive development (and, in some cases, funds) for implementation and deployment. 
+
+## About the Team
+Our team (Ganning Xu, Eric Liu, Qizheng “Cooper” Xie, and Melody Lee) is based in North Carolina. Our members are passionate about linguistics, computer science, and creating tools useful to society. 
+
 
 ### Sources
 [1] https://nces.ed.gov/programs/coe/indicator/cgf
