@@ -11,7 +11,7 @@ const DesktopNavLink = (props) => {
       borderColor="transparent"
       transition="all 0.2s"
       fontSize="lg"
-      color="gray.600"
+      color={props.mode === "dark" ? "gray.100" : "gray.700"}
       fontWeight="semibold"
       {...props}
     />
