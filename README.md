@@ -1,6 +1,7 @@
 ![](https://i.imgur.com/VLw3Bra.png)
 
 # RiemannAI
+*Developed by: Ganning Xu, Melody Lee, Eric Liu, Cooper Xie.*
 
 **Desired Features:**
 
