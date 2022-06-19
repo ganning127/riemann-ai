@@ -20,7 +20,7 @@ export default function Home() {
         <title>RiemannAI</title>
         <meta
           name="description"
-          content="Translate, Summarize, Learn with Riemann AI"
+          content="Translate, Summarize, and Learn with RiemannAI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

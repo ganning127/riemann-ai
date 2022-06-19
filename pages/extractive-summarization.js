@@ -56,7 +56,7 @@ export default function Extractive() {
         <title>Extractive Summarization | RiemannAI</title>
         <meta
           name="description"
-          content="Translate, Summarize, Learn with Riemann AI"
+          content="Translate, Summarize, and Learn with RiemannAI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

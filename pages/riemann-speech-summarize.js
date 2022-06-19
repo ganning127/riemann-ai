@@ -193,7 +193,7 @@ export default function SpeechSummarize() {
         <title>Speech Summarize | RiemannAI</title>
         <meta
           name="description"
-          content="Translate, Summarize, and Learn with Riemann AI"
+          content="Translate, Summarize, and Learn with RiemannAI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
