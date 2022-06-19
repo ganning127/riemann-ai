@@ -208,7 +208,7 @@ export default function SpeechSummarize() {
         <title>Speech Summarize | RiemannAI</title>
         <meta
           name="description"
-          content="Translate, Summarize, Learn with Riemann AI"
+          content="Translate, Summarize, and Learn with Riemann AI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -248,7 +248,7 @@ export default function SpeechSummarize() {
           </Box>
           <Box w="100%">
             <Text fontWeight="semibold">
-              Ouput (summarized/translated) language:
+              Output (summarized/translated) language:
             </Text>
             <Select onChange={handleOut}>
               {Object.keys(outLanguages).map((key, index) => {
