@@ -56,7 +56,7 @@ export default function Extractive() {
         <title>Extractive Summarization | RiemannAI</title>
         <meta
           name="description"
-          content="Translate, Summarize, Learn with Riemann AI"
+          content="Translate, Summarize, and Learn with RiemannAI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -101,7 +101,7 @@ export default function Extractive() {
               </FormControl>
               <FormControl isRequired borderRadius="20" color={textColor}>
                 <Textarea
-                  placeholder="Type long message here..."
+                  placeholder="Type or paste long message here..."
                   rows="5"
                   onInput={(e) => setOrigText(e.target.value)}
                   _placeholder={{ color: textColor }}
