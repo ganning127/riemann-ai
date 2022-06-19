@@ -26,7 +26,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box bg="black" minH="100vh">
-        <NavBar mode="dark" />
+        <NavBar mode="dark" bg="black" />
 
         <Container maxW="container.xl" p={4} mt={20}>
           <Img src="/logo.png" h="24" mx="auto" />
@@ -84,7 +84,8 @@ export default function Home() {
                 </Text>
                 <Text color="gray.400" fontWeight={400}>
                   <b>Note:</b> Please use <Code>JSON.stringify()</Code> before
-                  sending data over to this API endpoint.
+                  sending data over to this API endpoint. Only english is
+                  supported for extractive summarization.
                 </Text>
                 <Code colorScheme="blue" fontSize="2xl" mt={4}>
                   POST
@@ -148,7 +149,8 @@ const data = await resp.json();
                 </Text>
                 <Text color="gray.400" fontWeight={400}>
                   <b>Note:</b> Please use <Code>JSON.stringify()</Code> before
-                  sending data over to this API endpoint.
+                  sending data over to this API endpoint. Only english is
+                  supported for abstractive summarization.
                 </Text>
                 <Code colorScheme="blue" fontSize="2xl" mt={4}>
                   POST

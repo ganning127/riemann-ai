@@ -36,7 +36,7 @@ export const Landing = () => {
         <Stack spacing={6} direction={"row"}>
           <Button
             as="a"
-            href="/riemann-speech-summarize"
+            href="/riemann-speech-summarization"
             rounded={"full"}
             px={6}
             colorScheme={"orange"}

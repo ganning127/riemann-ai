@@ -1,4 +1,4 @@
-import { SideBar } from "../components/SideBar.jsx";
+import { SideBar } from "../components/SideBar.jsx/index.jsx";
 import Head from "next/head";
 import {
   Select,
@@ -33,7 +33,6 @@ const outLanguages = {
   German: "de",
   Italian: "it",
   Japanese: "ja",
-  Korean: "ko",
   "Portuguese (Brazil)": "pt",
   "Portuguese (Portugal)": "pt-pt",
 };
@@ -109,7 +108,7 @@ export default function SpeechSummarize() {
       setStarted(true);
       recognizer.startContinuousRecognitionAsync();
     }
-    
+
     recognizer.recognizing = (s, e) => {
       let words = [];
       let tempTranscript = transcript;
@@ -139,15 +138,16 @@ export default function SpeechSummarize() {
   const resetRecord = () => {
     setTranscript([]);
     setDisplayText("");
+    setSumms([]);
     setStarted(false);
     recognizer.stopContinuousRecognitionAsync();
   };
 
   const handleSummarize = async () => {
-    // if (displayText == "") {
-    //   alert("Please speak into the microphone before you summarize!");
-    //   return;
-    // }
+    if (displayText == "") {
+      alert("Please speak into the microphone before you summarize!");
+      return;
+    }
     setLoading(true);
     setSumms([]);
     const TEST_TEXT = displayText;
@@ -198,10 +198,10 @@ export default function SpeechSummarize() {
   };
 
   const handleSave = async () => {
-    // if (displayText == "") {
-    //   alert("Please speak into the microphone before you save!");
-    //   return;
-    // }
+    if (displayText == "") {
+      alert("Please speak into the microphone before you save!");
+      return;
+    }
 
     let currDate = console.log(currDate);
     let obj = {

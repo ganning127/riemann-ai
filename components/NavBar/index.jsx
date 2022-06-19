@@ -4,7 +4,7 @@ import { NavContent } from "./NavContent";
 import { motion } from "framer-motion";
 
 export const NavBar = ({ bg, active, mode }) => (
-  <Box bg={bg ? bg : "white.off"} pt="1" position="sticky" top="0" zIndex="100">
+  <Box bg={bg ? bg : "white"} pt="1" position="sticky" top="0" zIndex="100">
     <Box as="header" height="16" position="relative" color="black.light">
       <Box
         height="100%"
