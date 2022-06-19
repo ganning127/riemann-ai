@@ -167,10 +167,17 @@ export default function SpeechSummarize() {
     const documents = [TEST_TEXT];
 
     console.log("== Analyze Sample For Extract Summary ==");
+    const numSentences = TEST_TEXT.split(/[.!?]+\s/).filter(Boolean).length;
+
+    const maxSentences = Math.ceil(numSentences ** 0.65);
 
     const actions = {
       extractSummaryActions: [
-        { modelVersion: "latest", orderBy: "Rank", maxSentenceCount: 5 },
+        {
+          modelVersion: "latest",
+          orderBy: "Rank",
+          maxSentenceCount: maxSentences,
+        },
       ],
     };
     const poller = await client.beginAnalyzeActions(documents, actions, "en");
@@ -323,6 +330,7 @@ export default function SpeechSummarize() {
         <Link
           bg={"#BEE3ED"}
           px={8}
+          py={0.5}
           rounded="md"
           fontWeight="semibold"
           mr={4}

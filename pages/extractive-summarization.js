@@ -1,19 +1,10 @@
 import Head from "next/head";
-import { Landing } from "../components/Landing";
-import { Container } from "@chakra-ui/react";
-import { NavBar } from "../components/NavBar";
 import { SideBar } from "../components/SideBar.jsx";
 import {
-  Select,
   Heading,
   Text,
   Box,
-  Link,
-  HStack,
-  Flex,
-  ListItem,
   Spinner,
-  UnorderedList,
   FormControl,
   SimpleGrid,
   NumberInput,
@@ -23,9 +14,6 @@ import {
   NumberDecrementStepper,
   FormLabel,
   Input,
-  Img,
-  VStack,
-  StackDivider,
   Textarea,
   Button,
 } from "@chakra-ui/react";
@@ -60,7 +48,7 @@ export default function Extractive() {
       console.log(data);
       setIsSubmitted(true);
       setLoading(false);
-    }, 1000);
+    }, 700);
   };
   return (
     <>
