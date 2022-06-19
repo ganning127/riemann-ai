@@ -1,22 +1,15 @@
 import { SideBar } from "../components/SideBar.jsx";
 import Head from "next/head";
-import { Landing } from "../components/Landing";
 import {
   Select,
   Heading,
   Text,
   Box,
   Link,
-  Button,
   HStack,
-  Icon,
-  Tooltip,
   Flex,
-  List,
   ListItem,
-  ListIcon,
   Spinner,
-  OrderedList,
   UnorderedList,
 } from "@chakra-ui/react";
 import { HeadingWithDesc } from "../components/Headings/HeadingWithDesc.jsx";
@@ -235,24 +228,32 @@ export default function SpeechSummarize() {
           1. Choose your input and output languages
         </Heading>
         <HStack>
-          <Select onChange={handleDictIn}>
-            {Object.keys(inLanguages).map((key, index) => {
-              return (
-                <option key={key} value={inLanguages[key]}>
-                  {key}
-                </option>
-              );
-            })}
-          </Select>
-          <Select onChange={handleOut}>
-            {Object.keys(outLanguages).map((key, index) => {
-              return (
-                <option key={key} value={outLanguages[key]}>
-                  {key}
-                </option>
-              );
-            })}
-          </Select>
+          <Box w="100%">
+            <Text fontWeight="semibold">Input (spoken) language:</Text>
+            <Select onChange={handleDictIn}>
+              {Object.keys(inLanguages).map((key, index) => {
+                return (
+                  <option key={key} value={inLanguages[key]}>
+                    {key}
+                  </option>
+                );
+              })}
+            </Select>
+          </Box>
+          <Box w="100%">
+            <Text fontWeight="semibold">
+              Ouput (summarized/translated) language:
+            </Text>
+            <Select onChange={handleOut}>
+              {Object.keys(outLanguages).map((key, index) => {
+                return (
+                  <option key={key} value={outLanguages[key]}>
+                    {key}
+                  </option>
+                );
+              })}
+            </Select>
+          </Box>
         </HStack>
 
         <Heading
@@ -295,17 +296,19 @@ export default function SpeechSummarize() {
               Reset
             </Link>
           </Flex>
-          <Box
-            rounded="md"
-            bg="blackAlpha.50"
-            p={4}
-            shadow="md"
-            overflowY="scroll"
-            height="200px"
-            mt={4}
-          >
-            <Text>{displayText}</Text>
-          </Box>
+          {displayText && (
+            <Box
+              rounded="md"
+              bg="blackAlpha.50"
+              p={4}
+              shadow="md"
+              overflowY="scroll"
+              height="200px"
+              mt={4}
+            >
+              <Text>{displayText}</Text>
+            </Box>
+          )}
         </Box>
         <Heading
           as="h1"

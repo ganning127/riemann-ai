@@ -4,7 +4,10 @@
 */
 
 export default function handler(req, res) {
-  const text = req.body.origText;
+  const body = JSON.parse(req.body);
+  const pkeep = req.headers.pkeep;
+  console.log("pKeep", pkeep);
+  const text = body.origText;
 
   const stopwords = [
     "i",
@@ -167,7 +170,7 @@ export default function handler(req, res) {
   // pick the highet 30% of sentences
   const top_sentences = sentence_scores
     .sort((a, b) => b - a)
-    .slice(0, Math.floor(sentence_scores.length * 0.3));
+    .slice(0, Math.floor(sentence_scores.length * pkeep));
 
   // combine top sentences into one summary string and print it out
   const summary = sentence_tokens
