@@ -79,7 +79,7 @@ export default function Extractive() {
         <title>Abstractive Summarization | RiemannAI</title>
         <meta
           name="description"
-          content="Translate, Summarize, Learn with Riemann AI"
+          content="Translate, Summarize, and Learn with RiemannAI"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -110,7 +110,7 @@ export default function Extractive() {
                     Paste in a long piece of text{" "}
                   </FormLabel>
                   <Textarea
-                    placeholder="Paste long message here (min 20 sentences)..."
+                    placeholder="Type or paste a long message here (minimum 20 sentences)..."
                     rows="10"
                     onInput={(e) => setOrigText(e.target.value)}
                     _placeholder={{ color: textColor }}
@@ -124,7 +124,7 @@ export default function Extractive() {
                   <Input
                     onInput={(e) => setQuestion(e.target.value)}
                     type="text"
-                    placeholder="Type a question to ask about the text..."
+                    placeholder="Enter a question to ask about the text..."
                     color="gray.900"
                   />
                 </FormControl>

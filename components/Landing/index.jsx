@@ -45,9 +45,6 @@ export const Landing = () => {
           >
             Get started
           </Button>
-          <Button rounded={"full"} px={6} as="a" href="/about">
-            Learn more
-          </Button>
         </Stack>
       </Stack>
     </Container>

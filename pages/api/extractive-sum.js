@@ -6,7 +6,6 @@
 export default function handler(req, res) {
   const body = JSON.parse(req.body);
   const pkeep = req.headers.pkeep;
-  console.log("pKeep", pkeep);
   const text = body.origText;
 
   const stopwords = [
