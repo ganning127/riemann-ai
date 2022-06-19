@@ -13,6 +13,7 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  Badge,
   UnorderedList,
   useToast,
 } from "@chakra-ui/react";
@@ -48,6 +49,15 @@ const inLanguages = {
   Spanish: "es-MX",
 };
 
+let keySupported = {
+  English: "en",
+  French: "fr",
+  German: "de",
+  Italian: "it",
+  Japanese: "ja",
+  "Portuguese (Brazil)": "pt-BR",
+  "Portuguese (Portugal)": "pt-PT",
+};
 export default function SpeechSummarize() {
   const [started, setStarted] = useState(false);
   const [displayText, setDisplayText] = useState("");
@@ -57,6 +67,7 @@ export default function SpeechSummarize() {
   const [outLang, setOutLang] = useState("en");
   const [summs, setSumms] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [keywords, setKeywords] = useState([]);
   const toast = useToast();
 
   useEffect(() => {
@@ -127,7 +138,7 @@ export default function SpeechSummarize() {
       });
 
       setTranscript(tempTranscript);
-      setDisplayText(words.join(". ") + ".");
+      setDisplayText(words.join(". ") + ". ");
     };
 
     recognizer.sessionStopped = (s, e) => {
@@ -139,6 +150,7 @@ export default function SpeechSummarize() {
     setTranscript([]);
     setDisplayText("");
     setSumms([]);
+    setKeywords([]);
     setStarted(false);
     recognizer.stopContinuousRecognitionAsync();
   };
@@ -150,6 +162,7 @@ export default function SpeechSummarize() {
     }
     setLoading(true);
     setSumms([]);
+    setKeywords([]);
     const TEST_TEXT = displayText;
 
     setDisplayText(TEST_TEXT);
@@ -194,11 +207,24 @@ export default function SpeechSummarize() {
         }
       }
     }
-    console.log("Sums Length:", summs.length);
 
-    if (summs.length == 0) {
-      setSumms(["Spoken text too short to summarize!"]);
+    try {
+      if (Object.values(keySupported).includes(outLang)) {
+        console.log("Supported");
+        console.log(documents);
+        const keyPhraseResult = await client.extractKeyPhrases(
+          documents,
+          outLang
+        );
+
+        keyPhraseResult[0].keyPhrases.forEach((phrase) => {
+          setKeywords((keywords) => [...keywords, phrase]);
+        });
+      }
+    } catch (e) {
+      console.log(e);
     }
+
     setLoading(false);
   };
 
@@ -213,6 +239,7 @@ export default function SpeechSummarize() {
       date: new Date(),
       spokenTranscript: displayText,
       summarized: summs.join(" "),
+      keywords: keywords,
     };
 
     let currItems = JSON.parse(localStorage.getItem("riemann_db"));
@@ -401,11 +428,36 @@ export default function SpeechSummarize() {
 
         <Box mt={4} rounded="md" bg="blackAlpha.50" p={4} shadow="md">
           <UnorderedList>
-            {summs &&
-              summs.map((item, index) => {
-                return <ListItem key={index}>{item}</ListItem>;
-              })}
+            {summs.length > 0 && (
+              <>
+                <Text fontWeight="extrabold" fontSize="lg" mt={4}>
+                  Summary:
+                </Text>
+                {summs.map((item, index) => {
+                  return (
+                    <ListItem ml={8} key={index} fontSize="md">
+                      {item}
+                    </ListItem>
+                  );
+                })}
+              </>
+            )}
             {loading && <Spinner />}
+
+            {keywords.length > 0 && (
+              <>
+                <Text fontWeight="extrabold" fontSize="lg" mt={4}>
+                  Keywords:
+                </Text>
+                {keywords.slice(0, 10).map((item, index) => {
+                  return (
+                    <Badge key={index} colorScheme="green" mr={2}>
+                      {item}
+                    </Badge>
+                  );
+                })}
+              </>
+            )}
           </UnorderedList>
         </Box>
         <Button

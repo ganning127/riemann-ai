@@ -14,6 +14,7 @@ import {
   NumberDecrementStepper,
   FormLabel,
   Input,
+  Badge,
   Textarea,
   Button,
 } from "@chakra-ui/react";
@@ -94,6 +95,14 @@ export default function SavedSummaries() {
                 Summary:
               </Text>
               <Text>{item.summarized}</Text>
+              {item.keywords &&
+                item.keywords.slice(0, 10).map((item, index) => {
+                  return (
+                    <Badge key={index} colorScheme="green" mr={2}>
+                      {item}
+                    </Badge>
+                  );
+                })}
             </Box>
           );
         })}
