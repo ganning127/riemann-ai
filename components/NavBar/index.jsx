@@ -3,7 +3,7 @@ import * as React from "react";
 import { NavContent } from "./NavContent";
 import { motion } from "framer-motion";
 
-export const NavBar = ({ bg, active }) => (
+export const NavBar = ({ bg, active, mode }) => (
   <Box bg={bg ? bg : "white.off"} pt="1" position="sticky" top="0" zIndex="100">
     <Box as="header" height="16" position="relative" color="black.light">
       <Box
@@ -29,7 +29,11 @@ export const NavBar = ({ bg, active }) => (
           <motion.a href="/" whileHover={{ scale: 1.1 }}>
             <Flex align="center">
               <Img src="/logo.png" h="12" display="inline" mr="3" />
-              <Text fontSize="2xl" fontWeight="black" color="gray.700">
+              <Text
+                fontSize="2xl"
+                fontWeight="black"
+                color={mode === "dark" ? "white" : "gray.700"}
+              >
                 Riemann
                 <Text as="span" color="#98DFD2">
                   AI

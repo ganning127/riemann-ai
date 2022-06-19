@@ -36,14 +36,13 @@ const outLanguages = {
 
 const inLanguages = {
   English: "en",
-  "Chinese (Simplified)": "zh-Hans",
-  French: "fr",
-  German: "de",
-  Italian: "it",
-  Japanese: "ja",
-  Korean: "ko",
-  "Portuguese (Brazil)": "pt",
-  "Portuguese (Portugal)": "pt-pt",
+  "Chinese (Simplified)": "zh-CN",
+  French: "fr-FR",
+  German: "de-DE",
+  Italian: "it-IT",
+  Japanese: "ja-JP",
+  "Portuguese (Brazil)": "pt-BR",
+  Spanish: "es-MX",
 };
 
 export default function SpeechSummarize() {
