@@ -79,7 +79,10 @@ export default function Home() {
                   We provide an endpoint that allows for extractive
                   summarization. Extractive summarization keeps important
                   sentences and cuts out other ones from the original
-                  piece of text. <b>Note:</b> Please use{" "}
+                  piece of text.
+                </Text>
+                <Text color="gray.400" fontWeight={400}>
+                  <b>Note:</b> Please use{" "}
                   <Code>JSON.stringify()</Code> before sending data over to this
                   API endpoint.
                 </Text>
@@ -141,9 +144,12 @@ export default function Home() {
                 <Text color="gray.400" fontWeight={400}>
                   We provide an endpoint that allows for abstractive
                   summarization. Abstractive summarization uses deep learning to
-                  understand a piece of text, and returns the desired portions. 
-                  <b>Note:</b> Please use{" "} <Code>JSON.stringify()</Code> 
-                  before sending data over to this API endpoint.
+                  understand a piece of text, and returns the desired portions.
+                </Text>
+                <Text color="gray.400" fontWeight={400}>
+                  <b>Note:</b> Please use{" "}
+                  <Code>JSON.stringify()</Code> before sending data over to this
+                  API endpoint.
                 </Text>
                 <Code colorScheme="blue" fontSize="2xl" mt={4}>
                   POST
