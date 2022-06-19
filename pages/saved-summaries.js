@@ -4,26 +4,19 @@ import {
   Heading,
   Text,
   Box,
-  Spinner,
-  FormControl,
-  SimpleGrid,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   Badge,
   Textarea,
   Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { MdRestaurantMenu } from "react-icons/md";
+import { SearchIcon } from "@chakra-ui/icons";
 
 export default function SavedSummaries() {
   const [items, setItems] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
   useEffect(() => {
     // get items from localstorage and make a table
     const itemsStorage = JSON.parse(localStorage.getItem("riemann_db"));
@@ -62,6 +55,23 @@ export default function SavedSummaries() {
     }
     setItems(itemsStorage);
   }, []);
+
+  let filteredItems = items.filter((obj) => {
+    if (obj.keywords) {
+      for (let i = 0; i < obj.keywords.length; i++) {
+        if (obj.keywords[i].toLowerCase().includes(searchValue.toLowerCase())) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      if (searchValue) {
+        return false;
+      }
+      return true;
+    }
+  });
+
   return (
     <>
       <Head>
@@ -79,9 +89,18 @@ export default function SavedSummaries() {
             Summaries
           </Text>
         </Heading>
-
+        <InputGroup mb={4} mr={4} w="100%">
+          <Input
+            aria-label="Search by post title or summary"
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Search by post title or summary"
+          />
+          <InputRightElement>
+            <SearchIcon color="gray.300" />
+          </InputRightElement>
+        </InputGroup>
         <hr />
-        {items.map((item, index) => {
+        {filteredItems.map((item, index) => {
           const useDate = new Date(item.date);
           return (
             <Box key={index} p={4} rounded="md" shadow="md">
