@@ -9,11 +9,11 @@
 - [x] Take the transcribed text and feed it through a text summarization ML model once the user clicks a button
 - [x] Allow users to specify input (spoken) and output (summarized) languages
 - [x] Abstractive simplification
-- [] Saving the summaried document (can be any language)
-- [ ] API endpoints for Developers:
+- [x] Saving the summaried document (can be any language)
+- [x] API endpoints for Developers:
   - [x] Summarize text using extractive summarization
   - [x] Summarize text using abstractive summarization
-  - [ ] Summarize text from different languages as input and output
+  - [x] Summarize text from different languages as input and output
 
 
 # Write-Up
