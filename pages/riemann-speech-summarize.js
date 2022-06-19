@@ -67,8 +67,6 @@ export default function SpeechSummarize() {
   }, [dictLang]);
 
   const getAndSet = async () => {
-    console.log("dictLang:", dictLang);
-
     const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
 
     const speechTranslationConfig =
@@ -88,7 +86,6 @@ export default function SpeechSummarize() {
     );
 
     setRecognizer(recognizer);
-    // setTranslator(trsl);
     recognizer.stopContinuousRecognitionAsync();
   };
 
@@ -107,6 +104,7 @@ export default function SpeechSummarize() {
       setStarted(true);
       recognizer.startContinuousRecognitionAsync();
     }
+    
     recognizer.recognizing = (s, e) => {
       let words = [];
       let tempTranscript = transcript;
@@ -116,20 +114,13 @@ export default function SpeechSummarize() {
       if (
         e.result.offset === tempTranscript[tempTranscript.length - 1].offset
       ) {
-        console.log("same sentence");
         tempTranscript[tempTranscript.length - 1] = e.result;
       } else {
-        console.log("diff sentence");
         tempTranscript.push(e.result);
       }
-      console.log("outlang:", outLang);
       tempTranscript.forEach((obj) => {
         words.push(obj.translations.get(outLang));
       });
-
-      console.log("words:", words);
-
-      console.log("displayed;", words.join(". "));
 
       setTranscript(tempTranscript);
       setDisplayText(words.join(". "));
@@ -138,8 +129,6 @@ export default function SpeechSummarize() {
     recognizer.sessionStopped = (s, e) => {
       recognizer.stopContinuousRecognitionAsync();
     };
-
-    console.log("read the recognizer functions");
   };
 
   const resetRecord = () => {
@@ -155,7 +144,7 @@ export default function SpeechSummarize() {
     const TEST_TEXT = displayText;
 
     setDisplayText(TEST_TEXT);
-    console.log("outLang:", outLang);
+
     const client = new TextAnalyticsClient(
       process.env.NEXT_PUBLIC_COG_ENDPOINT,
       new AzureKeyCredential(process.env.NEXT_PUBLIC_COG_KEY),
@@ -165,7 +154,6 @@ export default function SpeechSummarize() {
     );
     const documents = [TEST_TEXT];
 
-    console.log("== Analyze Sample For Extract Summary ==");
     const numSentences = TEST_TEXT.split(/[.!?]+\s/).filter(Boolean).length;
 
     const maxSentences = Math.ceil(numSentences ** 0.65);
@@ -187,11 +175,8 @@ export default function SpeechSummarize() {
       const extractSummaryAction = page.extractSummaryResults[0];
       if (!extractSummaryAction.error) {
         for (const doc of extractSummaryAction.results) {
-          console.log(`- Document ${doc.id}`);
           if (!doc.error) {
-            console.log("\tSummary:");
             for (const sentence of doc.sentences) {
-              // console.log(`\t- ${sentence.text}`);
               setSumms((summs) => [...summs, sentence.text]);
             }
           } else {
