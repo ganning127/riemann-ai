@@ -323,7 +323,7 @@ export default function SpeechSummarize() {
           }}
           onClick={handleSummarize}
         >
-          Summarize Text!
+          Summarize Text
         </Link>
 
         {summs && (
