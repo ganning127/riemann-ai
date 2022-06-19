@@ -24,15 +24,21 @@ import { MdOutlineHealthAndSafety } from "react-icons/md";
 import {
   AiOutlineHeart,
   AiOutlineCheckCircle,
-  AiOutlineDotChart,
+  AiOutlineSave,
 } from "react-icons/ai";
 import { BsCalculator, BsCodeSlash, BsBook } from "react-icons/bs";
 import { BiWalk, BiMicrophone } from "react-icons/bi";
 import { SiCodefactor } from "react-icons/si";
+
 import { User } from "../User";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
   { name: "Speech", icon: BiMicrophone, href: "/riemann-speech-summarize" },
+  {
+    name: "Saved Summaries",
+    icon: AiOutlineSave,
+    href: "/saved-summaries",
+  },
   { name: "Extractive", icon: BsBook, href: "/extractive-summarization" },
   {
     name: "Abstractive",
