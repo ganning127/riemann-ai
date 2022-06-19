@@ -127,7 +127,7 @@ export default function SpeechSummarize() {
       });
 
       setTranscript(tempTranscript);
-      setDisplayText(words.join(". "));
+      setDisplayText(words.join(". ") + ".");
     };
 
     recognizer.sessionStopped = (s, e) => {
@@ -193,6 +193,11 @@ export default function SpeechSummarize() {
           }
         }
       }
+    }
+    console.log("Sums Length:", summs.length);
+
+    if (summs.length == 0) {
+      setSumms(["Spoken text too short to summarize!"]);
     }
     setLoading(false);
   };
