@@ -33,7 +33,7 @@ import { SiCodefactor } from "react-icons/si";
 import { User } from "../User";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
-  { name: "Speech", icon: BiMicrophone, href: "/riemann-speech-summarize" },
+  { name: "Speech", icon: BiMicrophone, href: "/riemann-speech-summarization" },
   {
     name: "Saved Summaries",
     icon: AiOutlineSave,

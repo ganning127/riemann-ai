@@ -14,7 +14,7 @@ import { NavListItem } from "./NavListItem";
 const links = [
   {
     label: "Speech",
-    href: "/riemann-speech-summarize",
+    href: "/riemann-speech-summarization",
   },
   {
     label: "Extractive",

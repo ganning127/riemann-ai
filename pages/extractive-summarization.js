@@ -42,7 +42,7 @@ export default function Extractive() {
         body: JSON.stringify({ origText: origText }),
       };
 
-      const resp = await fetch("/api/extractive-sum", options);
+      const resp = await fetch("/api/extractive-summarization", options);
       const data = await resp.json();
       setSummary(data.summary + ".");
       setIsSubmitted(true);
