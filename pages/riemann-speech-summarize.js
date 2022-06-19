@@ -12,118 +12,196 @@ import {
   Icon,
   Tooltip,
   Flex,
+  List,
+  ListItem,
+  ListIcon,
+  Spinner,
+  OrderedList,
+  UnorderedList,
 } from "@chakra-ui/react";
 import { HeadingWithDesc } from "../components/Headings/HeadingWithDesc.jsx";
-import React from "react";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
-const languages = {
-  Afrikaans: "af",
-  Basque: "eu",
-  Bulgarian: "bg",
-  Catalan: "ca",
-  "Arabic (Egypt)": "ar-EG",
-  "Arabic (Jordan)": "ar-JO",
-  "Arabic (Kuwait)": "ar-KW",
-  "Arabic (Lebanon)": "ar-LB",
-  "Arabic (Qatar)": "ar-QA",
-  "Arabic (UAE)": "ar-AE",
-  "Arabic (Morocco)": "ar-MA",
-  "Arabic (Iraq)": "ar-IQ",
-  "Arabic (Algeria)": "ar-DZ",
-  "Arabic (Bahrain)": "ar-BH",
-  "Arabic (Lybia)": "ar-LY",
-  "Arabic (Oman)": "ar-OM",
-  "Arabic (Saudi Arabia)": "ar-SA",
-  "Arabic (Tunisia)": "ar-TN",
-  "Arabic (Yemen)": "ar-YE",
-  Czech: "cs",
-  Dutch: "nl-NL",
-  "English (Australia)": "en-AU",
-  "English (Canada)": "en-CA",
-  "English (India)": "en-IN",
-  "English (New Zealand)": "en-NZ",
-  "English (South Africa)": "en-ZA",
-  "English(UK)": "en-GB",
-  "English(US)": "en-US",
-  Finnish: "fi",
-  French: "fr-FR",
-  Galician: "gl",
-  German: "de-DE",
-  "Greek ": "el-GR",
-  Hebrew: "he",
-  Hungarian: "hu",
-  Icelandic: "is",
-  Italian: "it-IT",
-  Indonesian: "id",
+const {
+  TextAnalyticsClient,
+  AzureKeyCredential,
+} = require("@azure/ai-text-analytics");
+
+const outLanguages = {
+  English: "en",
+  "Chinese (Simplified)": "zh-Hans",
+  French: "fr",
+  German: "de",
+  Italian: "it",
   Japanese: "ja",
   Korean: "ko",
-  Latin: "la",
-  "Mandarin Chinese": "zh-CN",
-  Taiwanese: "zh-TW",
-  Cantonese: "zh-HK",
-  Malaysian: "ms-MY",
-  Norwegian: "no-NO",
-  Polish: "pl",
-  "Pig Latin": "xx-piglatin",
-  Portuguese: "pt-PT",
-  "Portuguese (Brasil)": "pt-br",
-  Romanian: "ro-RO",
-  Russian: "ru",
-  Serbian: "sr-SP",
-  Slovak: "sk",
-  "Spanish (Argentina)": "es-AR",
-  "Spanish (Bolivia)": "es-BO",
-  "Spanish (Chile)": "es-CL",
-  "Spanish (Colombia)": "es-CO",
-  "Spanish (Costa Rica)": "es-CR",
-  "Spanish (Dominican Republic)": "es-DO",
-  "Spanish (Ecuador)": "es-EC",
-  "Spanish (El Salvador)": "es-SV",
-  "Spanish (Guatemala)": "es-GT",
-  "Spanish (Honduras)": "es-HN",
-  "Spanish (Mexico)": "es-MX",
-  "Spanish (Nicaragua)": "es-NI",
-  "Spanish (Panama)": "es-PA",
-  "Spanish (Paraguay)": "es-PY",
-  "Spanish (Peru)": "es-PE",
-  "Spanish (Puerto Rico)": "es-PR",
-  "Spanish (Spain)": "es-ES",
-  "Spanish (US)": "es-US",
-  "Spanish (Uruguay)": "es-UY",
-  "Spanish (Venezuela)": "es-VE",
-  Swedish: "sv-SE",
-  Turkish: "tr",
-  Zulu: "zu",
+  "Portuguese (Brazil)": "pt",
+  "Portuguese (Portugal)": "pt-pt",
 };
+
+const inLanguages = {
+  English: "en",
+  "Chinese (Simplified)": "zh-Hans",
+  French: "fr",
+  German: "de",
+  Italian: "it",
+  Japanese: "ja",
+  Korean: "ko",
+  "Portuguese (Brazil)": "pt",
+  "Portuguese (Portugal)": "pt-pt",
+};
+
 export default function SpeechSummarize() {
   const [started, setStarted] = useState(false);
+  const [displayText, setDisplayText] = useState("");
+  const [recognizer, setRecognizer] = useState(null);
+  const [transcript, setTranscript] = useState([]);
   const [dictLang, setDictLang] = useState("en-US");
-  const [outLang, setOutLang] = useState("en-US");
+  const [outLang, setOutLang] = useState("en");
+  const [summs, setSumms] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  let {
-    transcript,
-    listening,
-    finalTranscript,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
+  useEffect(() => {
+    getAndSet();
+  }, []);
 
-  const handleListen = () => {
-    if (started) {
-      SpeechRecognition.stopListening();
-      setStarted(false);
-    } else {
-      SpeechRecognition.startListening({
-        continuous: true,
-        language: dictLang,
-      });
-      setStarted(true);
+  useEffect(() => {
+    setTranscript([]);
+    setDisplayText([]);
+    setStarted(false);
+    getAndSet();
+  }, [dictLang]);
+
+  const getAndSet = async () => {
+    console.log("dictLang:", dictLang);
+
+    const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
+
+    const speechTranslationConfig =
+      speechsdk.SpeechTranslationConfig.fromSubscription(
+        process.env.NEXT_PUBLIC_COG_KEY,
+        "eastus"
+      );
+    speechTranslationConfig.speechRecognitionLanguage = dictLang;
+
+    for (let key of Object.keys(outLanguages)) {
+      speechTranslationConfig.addTargetLanguage(outLanguages[key]);
     }
+
+    const recognizer = new speechsdk.TranslationRecognizer(
+      speechTranslationConfig,
+      audioConfig
+    );
+
+    setRecognizer(recognizer);
+    // setTranslator(trsl);
+    recognizer.stopContinuousRecognitionAsync();
+  };
+
+  const handleDictIn = async (e) => {
+    setDictLang(e.target.value);
+  };
+  const handleOut = async (e) => {
+    setOutLang(e.target.value);
+  };
+
+  const handleRecord = () => {
+    if (started) {
+      setStarted(false);
+      recognizer.stopContinuousRecognitionAsync();
+    } else {
+      setStarted(true);
+      recognizer.startContinuousRecognitionAsync();
+    }
+    recognizer.recognizing = (s, e) => {
+      let words = [];
+      let tempTranscript = transcript;
+      if (tempTranscript.length === 0) {
+        tempTranscript.push(e.result);
+      }
+      if (
+        e.result.offset === tempTranscript[tempTranscript.length - 1].offset
+      ) {
+        console.log("same sentence");
+        tempTranscript[tempTranscript.length - 1] = e.result;
+      } else {
+        console.log("diff sentence");
+        tempTranscript.push(e.result);
+      }
+      console.log("outlang:", outLang);
+      tempTranscript.forEach((obj) => {
+        words.push(obj.translations.get(outLang));
+      });
+
+      console.log("words:", words);
+
+      console.log("displayed;", words.join(". "));
+
+      setTranscript(tempTranscript);
+      setDisplayText(words.join(". "));
+    };
+
+    recognizer.sessionStopped = (s, e) => {
+      recognizer.stopContinuousRecognitionAsync();
+    };
+
+    console.log("read the recognizer functions");
+  };
+
+  const resetRecord = () => {
+    setTranscript([]);
+    setDisplayText("");
+    setStarted(false);
+    recognizer.stopContinuousRecognitionAsync();
+  };
+
+  const handleSummarize = async () => {
+    setLoading(true);
+    setSumms([]);
+    const TEST_TEXT = displayText;
+
+    setDisplayText(TEST_TEXT);
+    console.log("outLang:", outLang);
+    const client = new TextAnalyticsClient(
+      process.env.NEXT_PUBLIC_COG_ENDPOINT,
+      new AzureKeyCredential(process.env.NEXT_PUBLIC_COG_KEY),
+      {
+        defaultLanguage: outLang,
+      }
+    );
+    const documents = [TEST_TEXT];
+
+    console.log("== Analyze Sample For Extract Summary ==");
+
+    const actions = {
+      extractSummaryActions: [
+        { modelVersion: "latest", orderBy: "Rank", maxSentenceCount: 5 },
+      ],
+    };
+    const poller = await client.beginAnalyzeActions(documents, actions, "en");
+
+    const resultPages = await poller.pollUntilDone();
+
+    for await (const page of resultPages) {
+      const extractSummaryAction = page.extractSummaryResults[0];
+      if (!extractSummaryAction.error) {
+        for (const doc of extractSummaryAction.results) {
+          console.log(`- Document ${doc.id}`);
+          if (!doc.error) {
+            console.log("\tSummary:");
+            for (const sentence of doc.sentences) {
+              // console.log(`\t- ${sentence.text}`);
+              setSumms((summs) => [...summs, sentence.text]);
+            }
+          } else {
+            console.error("\tError:", doc.error);
+          }
+        }
+      }
+    }
+    setLoading(false);
   };
   return (
     <>
@@ -157,31 +235,21 @@ export default function SpeechSummarize() {
           1. Choose your input and output languages
         </Heading>
         <HStack>
-          <Select
-            placeholder="Dictated Language (default: English)"
-            onChange={(e) => setDictLang(e.target.value)}
-          >
-            {Object.keys(languages).map((key, index) => {
+          <Select onChange={handleDictIn}>
+            {Object.keys(inLanguages).map((key, index) => {
               return (
-                <>
-                  <option key={index} value={languages[key]}>
-                    {key}
-                  </option>
-                </>
+                <option key={key} value={inLanguages[key]}>
+                  {key}
+                </option>
               );
             })}
           </Select>
-          <Select
-            placeholder="Output Language (default: English)"
-            onChange={(e) => setOutLang(e.target.value)}
-          >
-            {Object.keys(languages).map((key, index) => {
+          <Select onChange={handleOut}>
+            {Object.keys(outLanguages).map((key, index) => {
               return (
-                <>
-                  <option key={index} value={languages[key]}>
-                    {key}
-                  </option>
-                </>
+                <option key={key} value={outLanguages[key]}>
+                  {key}
+                </option>
               );
             })}
           </Select>
@@ -197,12 +265,7 @@ export default function SpeechSummarize() {
         >
           2. Record your transcription!
         </Heading>
-        <Text fontSize="sm" color="gray.600">
-          <Text as="span" fontWeight="bold">
-            Note:
-          </Text>{" "}
-          You will need to say "period" each time a period should be inserted.
-        </Text>
+
         <Box mt={4}>
           <Flex alignItems="center">
             <Link
@@ -214,24 +277,34 @@ export default function SpeechSummarize() {
               _hover={{
                 bg: "#99dff2",
               }}
-              onClick={handleListen}
+              onClick={handleRecord}
             >
               {started ? "Pause" : "Start"}
             </Link>
-            <Text>
-              <b>Microphone:</b> {listening ? "On" : "Off (or no access)"}
-            </Text>
+            <Link
+              bg={"#BEE3ED"}
+              px={8}
+              rounded="md"
+              fontWeight="semibold"
+              mr={4}
+              _hover={{
+                bg: "#99dff2",
+              }}
+              onClick={resetRecord}
+            >
+              Reset
+            </Link>
           </Flex>
           <Box
-            p={4}
             rounded="md"
-            shadow="sm"
-            bg="gray.100"
+            bg="blackAlpha.50"
+            p={4}
+            shadow="md"
             overflowY="scroll"
             height="200px"
             mt={4}
           >
-            <Text>{transcript}</Text>
+            <Text>{displayText}</Text>
           </Box>
         </Box>
         <Heading
@@ -245,8 +318,6 @@ export default function SpeechSummarize() {
           3. Watch the magic happen!
         </Heading>
         <Link
-          ml={2}
-          mt={24}
           bg={"#BEE3ED"}
           px={8}
           rounded="md"
@@ -255,9 +326,22 @@ export default function SpeechSummarize() {
           _hover={{
             bg: "#99dff2",
           }}
+          onClick={handleSummarize}
         >
-          Summarize
+          Summarize Text!
         </Link>
+
+        {summs && (
+          <Box mt={4} rounded="md" bg="blackAlpha.50" p={4} shadow="md">
+            <UnorderedList>
+              {summs &&
+                summs.map((item, index) => {
+                  return <ListItem key={index}>{item}</ListItem>;
+                })}
+              {loading && <Spinner />}
+            </UnorderedList>
+          </Box>
+        )}
       </SideBar>
     </>
   );
