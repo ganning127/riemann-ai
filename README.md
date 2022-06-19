@@ -18,11 +18,18 @@
 
 # Write-Up
 ## Inspiration
-In the United States alone, over 10.4% of all enrolled students are English Language Learning (ELL) students – or individuals who face challenges in learning and communicating fluently in the English language [1]. Yet, many of these students – a number close to almost 5.1 million nationwide – are enrolled in institutions that lack the resources to help them overcome this language barrier.
+In the United States alone, over 10.4% of all enrolled students are English Language Learning (ELL) students, or individuals who face challenges in learning and communicating fluently in the English language [1]. Yet, many of these students – a number close to 5.1 million nationwide – are enrolled in institutions that lack the resources to help them overcome this language barrier.
 
-As English as a Second Language (ESL) students ourselves, we have experienced such inconveniences in American schools firsthand, especially in the first few months immediately after moving to the United States. “I remember when I first moved to the United States in 8th grade. I could not understand any word in science class. I struggled a lot with my grade,” says Cooper Xie, one of our group members. Thus, when allowed to create something that we “believe will be useful to society”, the thought of tackling this challenge our very own team members have faced came to mind.
+These ELL students across the country (and arguably the world) struggle to keep up in class due to fast-paced, non-Native language-based classes. Schools may not have access to the necessary human resources and funds needed to accommodate these students, hindering ELL students’ opportunities to learn. 
 
-Problems like these inspired us to create and program RiemannAI, a service that translates and summarizes course content for students worldwide. 
+As English as a Second Language (ESL) students ourselves, we have experienced such inconveniences in American schools firsthand, especially in the first few months immediately after moving to the United States. “I remember when I first moved to the United States in 8th grade. I could not understand any word in science class. I struggled a lot with my grade,” says Cooper Xie, one of our group members. Thus, when prompted to create something that we “believe will be useful to society”, the thought of tackling this challenge, which our own team members have faced, came to mind.
+
+We were inspired to create RiemannAI, a service that translates and summarizes course content for students worldwide, the very solution many of our team members wished we had access to years ago.
 
 ## Our Solution
-RiemannAI is a simplistic language process interface. It can take inputs from audio recorded in [number of languages] languages (like [insert some language names]), translate them into English, summarize the information with natural language processing (NLP) and machine learning (ML), and translate the summarized information back to a language of the user’s choosing. 
+RiemannAI is a simplistic language process interface. The key feature of our solution allows students to use RiemannAI to transcribe and translate audio recordings of lectures, discussions, or speeches from most languages into the student’s chosen language. To make review of the material easier for these students, our solution also incorporates a text summarization capability that returns the main points from this audio recording for the student’s use. 
+
+Yet RiemannAI is more than merely just a single tool. The interactive interface also introduces methods for extractive and abstractive summarization from text (expanding its functionality to more than just audio input). The extractive summarization functionality allows for students to shorten long, difficult texts to an approachable length. On the other hand, the abstractive summarization function aids in the summarization and finding of answers to certain questions students may have. This, in turn, will allow for students to approach work completion and studying more efficiently.
+
+### Sources
+[1] https://nces.ed.gov/programs/coe/indicator/cgf
