@@ -156,10 +156,10 @@ export default function SpeechSummarize() {
   };
 
   const handleSummarize = async () => {
-    // if (displayText == "") {
-    //   alert("Please speak into the microphone before you summarize!");
-    //   return;
-    // }
+    if (displayText == "") {
+      alert("Please speak into the microphone before you summarize!");
+      return;
+    }
     setLoading(true);
     setSumms([]);
     setKeywords([]);
@@ -229,10 +229,10 @@ export default function SpeechSummarize() {
   };
 
   const handleSave = async () => {
-    // if (displayText == "") {
-    //   alert("Please speak into the microphone before you save!");
-    //   return;
-    // }
+    if (displayText == "") {
+      alert("Please speak into the microphone before you save!");
+      return;
+    }
 
     let currDate = console.log(currDate);
     let obj = {
@@ -246,78 +246,6 @@ export default function SpeechSummarize() {
 
     if (!currItems) {
       currItems = [
-        {
-          date: "2022-06-19T23:04:55.473Z",
-          spokenTranscript: [],
-          summarized:
-            "The Boeing 737 MAX is the fourth generation of the Boeing 737, a narrow-body airliner manufactured by Boeing Commercial Airplanes (BCA), a division of American company Boeing. The new series was announced on August 30, 2011. It took its maiden flight on January 29, 2016 and was certified by the United States Federal Aviation Administration (FAA) in March 2017. The 737 MAX series has been offered in four variants, offering 138 to 204 seats in typical two-class configuration, and a range of 3,300 to 3,850 nautical miles (6,110 to 7,130 km). As of May 2022, the 737 MAX has 4,094 unfilled orders and 797 deliveries. It was subsequently grounded worldwide from March 2019 to November 2020. The first delivery was a MAX 8 in May 2017 to Malindo Air, with whom it commenced service on May 22, 2017.",
-          keywords: [
-            "United States Federal Aviation Administration",
-            "efficient CFM International LEAP-1B engines",
-            "Maneuvering Characteristics Augmentation System",
-            "Airbus A320neo family",
-            "distinctive split-tip winglets",
-            "typical two-class configuration",
-            "two fatal crashes",
-            "3,300 to 3,850 nautical miles",
-            "Ethiopian Airlines Flight",
-            "Boeing Commercial Airplanes",
-            "American company Boeing",
-            "Lion Air Flight",
-            "Boeing 737 Next Generation",
-            "The Boeing 737 MAX",
-            "fourth generation",
-            "Malindo Air",
-            "138 to 204 seats",
-            "maiden flight",
-            "Boeing cover-up",
-            "narrow-body airliner",
-            "new series",
-            "earlier 737 designs",
-            "aerodynamic changes",
-            "airframe modifications",
-            "four variants",
-            "4,094 unfilled orders",
-            "recurring failure",
-            "training changes",
-            "European authorities",
-            "Chinese authorities",
-            "early December",
-            "The 737 MAX",
-            "737 MAX series",
-            "200–seat MAX",
-            "first delivery",
-            "The FAA",
-            "late January",
-            "450 MAX aircraft",
-            "BCA",
-            "division",
-            "August",
-            "March",
-            "May",
-            "service",
-            "range",
-            "7,130 km",
-            "797 deliveries",
-            "MCAS",
-            "346 people",
-            "November",
-            "Investigations",
-            "defect",
-            "lapses",
-            "certification",
-            "fraud",
-            "penalties",
-            "compensation",
-            "return",
-            "Canadian",
-            "180 countries",
-            "grounding",
-            "backlog",
-            "end",
-            "700",
-          ],
-        },
         {
           date: "2022-06-19T23:05:58.828Z",
           spokenTranscript:
